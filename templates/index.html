@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPath AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0f172a; color: white; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen">
+
+    <div class="text-center w-full max-w-md p-6">
+        <!-- Logo / Header -->
+        <div class="mb-8">
+            <h1 class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
+                SmartPath
+            </h1>
+            <p class="text-slate-400 mt-2">AI Career Navigator</p>
+        </div>
+
+        <!-- Form Card -->
+        <div class="glass p-8 rounded-2xl shadow-2xl">
+            <form action="/generate" method="post" class="space-y-6">
+
+                <div class="text-left">
+                    <label class="block text-sm font-medium text-slate-300 mb-2">Target Role</label>
+                    <input type="text" name="role" required
+                           class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-cyan-500 outline-none transition"
+                           placeholder="e.g. Fullstack Developer">
+                </div>
+
+                <div class="text-left">
+                    <label class="block text-sm font-medium text-slate-300 mb-2">Current Level</label>
+                    <select name="experience"
+                            class="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-cyan-500 outline-none">
+                        <option value="Zero knowledge">Newbie (0 exp)</option>
+                        <option value="Self-taught">Self-taught</option>
+                        <option value="Junior">Junior</option>
+                        <option value="Switcher">Switcher</option>
+                    </select>
+                </div>
+
+                <button type="submit"
+                        class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold py-3 rounded-lg shadow-lg transform transition hover:scale-105">
+                    Generate Roadmap 🚀
+                </button>
+            </form>
+        </div>
+
+        <p class="mt-8 text-xs text-slate-600">Powered by FastAPI & Gemini 2.0</p>
+    </div>
+
+</body>
+</html>

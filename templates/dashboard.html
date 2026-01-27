@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartPath Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { dark: '#0b0e11', matrix: '#00FF41' }
+                }
+            }
+        }
+    </script>
+    <style>body { background-color: #0b0e11; color: white; }</style>
+</head>
+<body class="flex h-screen font-sans">
+
+    <!-- Sidebar (Static for look) -->
+    <aside class="w-64 bg-dark border-r border-gray-800 p-6 hidden md:flex flex-col">
+        <div class="flex items-center gap-2 mb-10">
+            <div class="w-8 h-8 bg-matrix rounded-lg flex items-center justify-center text-black font-bold">S</div>
+            <h1 class="text-xl font-bold">SmartPath</h1>
+        </div>
+        <nav class="space-y-1 text-sm">
+            <a href="#" class="block px-4 py-2 bg-gray-800 text-white rounded-lg">Create New Path</a>
+            <a href="#" class="block px-4 py-2 text-gray-400 hover:text-white">History</a>
+            <a href="#" class="block px-4 py-2 text-gray-400 hover:text-white">Profile</a>
+        </nav>
+        <div class="mt-auto">
+            <a href="/logout" class="flex items-center gap-2 text-gray-500 hover:text-red-400 text-sm">
+                <span>Log out</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex items-center justify-center p-6 relative">
+        <div class="absolute top-0 right-0 p-6 flex items-center gap-3">
+             <span class="text-gray-400 text-sm">Hello, {{ user }}</span>
+             <div class="w-8 h-8 rounded-full bg-gray-700"></div>
+        </div>
+
+        <div class="w-full max-w-2xl">
+            <h2 class="text-4xl font-bold mb-2">What's your next goal?</h2>
+            <p class="text-gray-400 mb-8">AI will analyze the current job market to build your path.</p>
+
+            <form action="/generate" method="post" class="bg-[#151b23] border border-gray-800 p-8 rounded-2xl shadow-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">TARGET ROLE</label>
+                        <input type="text" name="role" required placeholder="e.g. DevOps Engineer"
+                               class="w-full bg-black/40 border border-gray-700 rounded-lg p-4 text-white focus:border-matrix outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-2">CURRENT LEVEL</label>
+                        <select name="experience" class="w-full bg-black/40 border border-gray-700 rounded-lg p-4 text-white focus:border-matrix outline-none appearance-none">
+                            <option value="Beginner">I'm a complete beginner</option>
+                            <option value="Student">IT Student</option>
+                            <option value="Junior">Junior Developer</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-matrix hover:bg-[#00cc33] text-black font-bold py-4 rounded-lg flex items-center justify-center gap-2 transition hover:scale-[1.01]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    Generate AI Roadmap
+                </button>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>
