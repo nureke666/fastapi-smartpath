@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartPath - Market Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { dark: '#0b0e11', matrix: '#00FF41', warning: '#FFB020' } }
+            }
+        }
+    </script>
+    <style>body { background-color: #0b0e11; color: white; }</style>
+</head>
+<body class="flex h-screen font-sans overflow-hidden">
+
+
+    <!-- ================= LEFT SIDEBAR ================= -->
+    <aside class="w-64 bg-dark border-r border-gray-800 flex flex-col justify-between p-6">
+        <div>
+            <!-- Logo -->
+            <div class="flex items-center gap-2 mb-10">
+                <div class="w-8 h-8 bg-matrix rounded-lg flex items-center justify-center text-black font-bold text-xl">S</div>
+                <h1 class="text-2xl font-bold tracking-tight">SmartPath</h1>
+            </div>
+
+            <!-- Menu -->
+            <nav class="space-y-2">
+                <a href="/roadmap" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    <span class="font-medium">My Roadmap</span>
+                </a>
+                <a href="/market" class="flex items-center gap-3 px-4 py-3 bg-matrix/10 text-matrix rounded-lg border border-matrix/20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span>Job Market Tracker</span>
+                </a>
+                <a href="/assessment" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    <span>Skill Assessment</span>
+                </a>
+                <a href="/logout" class="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white transition mt-8 border-t border-gray-800">
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Upgrade Box -->
+        <div class="bg-matrix/5 border border-matrix/20 p-4 rounded-xl">
+            <div class="text-matrix font-bold mb-1" >
+                <a href="/upgrade">👑 Upgrade to Pro</a>
+            </div>
+            <p class="text-xs text-gray-400 mb-3">Unlock AI-powered mentorship and advanced analytics.</p>
+            <button class="w-full bg-matrix hover:bg-matrix_dim text-black font-bold py-2 rounded-lg transition text-sm">
+                <a href="/upgrade">Upgrade Now</a>
+            </button>
+        </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="flex-1 p-10 overflow-y-auto">
+        <h2 class="text-3xl font-bold mb-6">Market Insights: <span class="text-matrix">{{ user.role_goal }}</span></h2>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-[#151b23] p-6 rounded-xl border border-gray-800">
+                <div class="text-gray-400 text-sm mb-1">Avg. Junior Salary</div>
+                <div class="text-2xl font-bold text-white">450,000 ₸</div>
+                <div class="text-matrix text-xs mt-2">▲ 12% vs last year</div>
+            </div>
+            <div class="bg-[#151b23] p-6 rounded-xl border border-gray-800">
+                <div class="text-gray-400 text-sm mb-1">Open Vacancies (Almaty)</div>
+                <div class="text-2xl font-bold text-white">1,240</div>
+                <div class="text-gray-500 text-xs mt-2">Updated 2 hours ago</div>
+            </div>
+            <div class="bg-[#151b23] p-6 rounded-xl border border-gray-800">
+                <div class="text-gray-400 text-sm mb-1">Competition Score</div>
+                <div class="text-2xl font-bold text-warning">Medium</div>
+                <div class="text-gray-500 text-xs mt-2">15 candidates per role</div>
+            </div>
+        </div>
+
+        <!-- Top Skills Chart (Visual Fake) -->
+        <div class="bg-[#151b23] p-8 rounded-xl border border-gray-800 mb-8">
+            <h3 class="font-bold mb-6">Most Demanded Skills</h3>
+            <div class="space-y-4">
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span>Python / Django</span>
+                        <span class="text-matrix">85%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 h-2 rounded-full">
+                        <div class="bg-matrix h-2 rounded-full" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span>PostgreSQL</span>
+                        <span class="text-matrix">70%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 h-2 rounded-full">
+                        <div class="bg-matrix h-2 rounded-full" style="width: 70%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span>Docker & CI/CD</span>
+                        <span class="text-matrix">60%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 h-2 rounded-full">
+                        <div class="bg-matrix h-2 rounded-full" style="width: 60%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-blue-900/20 border border-blue-500/30 p-6 rounded-xl flex justify-between items-center">
+            <div>
+                <h4 class="font-bold text-blue-400">Want real-time alerts?</h4>
+                <p class="text-sm text-gray-400">Get notified when a vacancy matches your skill tree.</p>
+            </div>
+            <a href="/upgrade" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-bold transition">
+                Enable Alerts
+            </a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upgrade Plan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { dark: '#0b0e11', matrix: '#00FF41' } } }
+        }
+    </script>
+    <style>body { background-color: #0b0e11; color: white; }</style>
+</head>
+<body class="flex flex-col h-screen items-center justify-center relative">
+
+    <a href="/roadmap" class="absolute top-8 left-8 text-gray-400 hover:text-white">← Back to Dashboard</a>
+
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold mb-4">Invest in your <span class="text-matrix">Future</span></h1>
+        <p class="text-gray-400">Unlock the full power of AI Mentorship</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full px-6">
+
+        <!-- Free Plan -->
+        <div class="bg-[#151b23] border border-gray-800 p-8 rounded-2xl opacity-50 hover:opacity-100 transition">
+            <h3 class="text-xl font-bold text-gray-400">Starter</h3>
+            <div class="text-3xl font-bold my-4">Free</div>
+            <ul class="space-y-3 text-sm text-gray-400 mb-8">
+                <li>✓ Basic Roadmap</li>
+                <li>✓ 3 AI Questions / day</li>
+                <li>✓ Community Access</li>
+            </ul>
+            <button class="w-full border border-gray-600 py-3 rounded-lg text-gray-300">Current Plan</button>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="bg-[#151b23] border border-matrix p-8 rounded-2xl shadow-[0_0_30px_rgba(0,255,65,0.1)] relative">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-matrix text-black text-xs font-bold px-3 py-1 rounded-full">RECOMMENDED</div>
+            <h3 class="text-xl font-bold text-white">Pro Career</h3>
+            <div class="text-4xl font-bold my-4 text-matrix">$9<span class="text-sm text-gray-400">/mo</span></div>
+            <ul class="space-y-3 text-sm text-gray-300 mb-8">
+                <li class="flex gap-2"><span>🚀</span> Unlimited AI Mentoring</li>
+                <li class="flex gap-2"><span>🎯</span> Personalized Skill Assessment</li>
+                <li class="flex gap-2"><span>💼</span> Mock Interviews</li>
+                <li class="flex gap-2"><span>📜</span> CV Review by AI</li>
+            </ul>
+            <button onclick="alert('Payment Gateway Integration coming soon!')" class="w-full bg-matrix hover:bg-green-500 text-black font-bold py-3 rounded-lg transform transition hover:scale-105">Upgrade Now</button>
+        </div>
+    </div>
+
+</body>
+</html>
