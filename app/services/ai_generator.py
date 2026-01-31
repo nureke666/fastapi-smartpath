@@ -1,9 +1,9 @@
 import json
 from google import genai
 from google.genai import types
-from app.core.config import API_KEY2
+from app.core.config import API_KEY1
 
-client = genai.Client(api_key=API_KEY2)
+client = genai.Client(api_key=API_KEY1)
 
 
 def generate_roadmap_ai(role: str, experience: str, time_avail: str):
@@ -19,7 +19,7 @@ def generate_roadmap_ai(role: str, experience: str, time_avail: str):
 
     try:
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-2.5-flash",
             contents=prompt,
             config=types.GenerateContentConfig(temperature=0.7)
         )

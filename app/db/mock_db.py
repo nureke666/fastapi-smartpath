@@ -1,30 +1,54 @@
+# app/db/mock_db.py
 from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# Имитация базы данных
-# Структура: username -> {данные}
+# Имитация базы данных (храним в памяти)
+# Структура: username -> { данные }
 users_db = {
     "admin": {
         "username": "admin",
-        "full_name": "Admin User",
+        "email": "admin@example.com",
         "hashed_password": pwd_context.hash("admin"),
-        "role_goal": None,      # Кем хочет стать (сохраним после опроса)
-        "roadmap_data": None,   # Сама карта (JSON)
-        "is_onboarded": False   # Прошел ли опрос?
-    },
-    "student": {
-        "username": "student",
-        "full_name": "Student User",
-        "hashed_password": pwd_context.hash("123"),
         "role_goal": None,
         "roadmap_data": None,
         "is_onboarded": False
     }
 }
 
+
 def get_user(username: str):
+    """Поиск по username"""
     return users_db.get(username)
+
+
+def get_user_by_email(email: str):
+    """Поиск по email"""
+    for user in users_db.values():
+        if user.get("email") == email:
+            return user
+    return None
+
+
+def create_user(username: str, email: str, password: str):
+    """Создание нового пользователя"""
+    if username in users_db:
+        return None  # Пользователь уже есть
+
+    hashed_password = pwd_context.hash(password)
+
+    new_user = {
+        "username": username,
+        "email": email,
+        "hashed_password": hashed_password,
+        "role_goal": None,
+        "roadmap_data": None,
+        "is_onboarded": False
+    }
+
+    users_db[username] = new_user
+    return new_user
+
 
 def update_user_roadmap(username: str, role: str, roadmap: list):
     if username in users_db:
