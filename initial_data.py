@@ -1,78 +1,94 @@
 # initial_data.py
 import sys
+import json
 
-# Добавляем текущую директорию в путь, чтобы видеть app
 sys.path.append(".")
 
 from app.db.session import SessionLocal, engine
-from app.models.roadmap import Career, RoadmapNode, Question
 from app.db.base import Base
+
+# --- ВАЖНО: Импортируем ВСЕ модели, чтобы SQLAlchemy знала о них ---
+from app.models.user import User  # <--- Этой строки не хватало!
+from app.models.roadmap import Career, RoadmapNode, Question, UserProgress
 
 
 def init_db():
+    print("Creating tables...")
+    # Создаем таблицы (теперь User импортирован, и ошибка исчезнет)
+    Base.metadata.create_all(bind=engine)
+
     db = SessionLocal()
 
-    # 1. Проверяем, есть ли уже данные, чтобы не дублировать
+    # Проверяем, есть ли данные
     existing_career = db.query(Career).filter(Career.title == "Python Backend Developer").first()
     if existing_career:
         print("Data already exists!")
+        db.close()
         return
 
     print("Creating seed data...")
 
-    # 2. Создаем Карьеру
+    # 1. Карьера
     python_career = Career(
         title="Python Backend Developer",
-        description="Master Python, APIs, and Databases to become a backend engineer."
+        description="Master Python, APIs, and Databases."
     )
     db.add(python_career)
     db.commit()
     db.refresh(python_career)
 
-    # 3. Создаем Узлы (Roadmap Nodes)
+    # 2. Узлы и Вопросы
     nodes_data = [
         {
             "title": "Python Basics",
-            "desc": "Variables, Data Types, Lists, Dictionaries. The foundation of code.",
-            "order": 1
+            "desc": "Variables, types.",
+            "order": 1,
+            "quiz": {
+                "text": "Как вывести текст в консоль?",
+                "options": ["echo()", "console.log()", "print()"],
+                "correct": 2  # print()
+            }
         },
         {
-            "title": "Control Flow & Loops",
-            "desc": "If/Else statements, For and While loops. Logic control.",
-            "order": 2
+            "title": "Control Flow",
+            "desc": "Loops and Ifs.",
+            "order": 2,
+            "quiz": {
+                "text": "Какой оператор используется для цикла?",
+                "options": ["for", "loop", "repeat"],
+                "correct": 0  # for
+            }
         },
-        {
-            "title": "Functions & Modules",
-            "desc": "Writing reusable code, importing libraries, understanding scope.",
-            "order": 3
-        },
-        {
-            "title": "Object-Oriented Programming (OOP)",
-            "desc": "Classes, Objects, Inheritance, Polymorphism.",
-            "order": 4
-        },
-        {
-            "title": "FastAPI & Web Basics",
-            "desc": "HTTP methods, Routing, Pydantic schemas. Your first API.",
-            "order": 5
-        }
+        # Можешь добавить больше тем по желанию
     ]
 
-    for node in nodes_data:
+    for data in nodes_data:
+        # Создаем ноду
         new_node = RoadmapNode(
             career_id=python_career.id,
-            title=node["title"],
-            description_content=node["desc"],
-            order_index=node["order"]
+            title=data["title"],
+            description_content=data["desc"],
+            order_index=data["order"]
         )
         db.add(new_node)
+        db.commit()
+        db.refresh(new_node)
+
+        # Создаем вопрос
+        if "quiz" in data:
+            q_data = data["quiz"]
+            new_question = Question(
+                node_id=new_node.id,
+                text=q_data["text"],
+                options_json=json.dumps(q_data["options"]),
+                correct_option_index=q_data["correct"]
+            )
+            db.add(new_question)
 
     db.commit()
-    print("Success! Career and Nodes created.")
+    print("Success! Career, Nodes, and Questions created.")
     db.close()
 
 
 if __name__ == "__main__":
-    # Создаем таблицы на всякий случай
-    Base.metadata.create_all(bind=engine)
     init_db()
