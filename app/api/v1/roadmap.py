@@ -141,7 +141,7 @@ def get_career_details(
     return _career_to_response(career, progress_map)
 
 
-@router.post("/generate", response_model=CareerResponse)
+@router.post("/generate", response_model=CareerResponse, deprecated=True)
 def generate_custom_roadmap(
         request: RoadmapGenerateRequest,
         db: Session = Depends(deps.get_db),
