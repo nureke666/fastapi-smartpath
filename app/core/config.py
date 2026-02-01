@@ -1,15 +1,16 @@
-import os
-from dotenv import load_dotenv
+# app/core/config.py
+from pydantic_settings import BaseSettings
 
-load_dotenv()
 
-# API GEMINI (оставляем как было)
-API_KEY1 = os.getenv("GEMINI_API_KEY_1")
-SECRET_KEY = os.getenv("SECRET_KEY", "super_secret_key_change_me")
+class Settings(BaseSettings):
+    PROJECT_NAME: str = "SmartPath MVP"
+    API_V1_STR: str = "/api/v1"
 
-# AUTH settings
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+    # Используем SQLite для MVP (файл будет создан в корне проекта)
+    DATABASE_URL: str = "sqlite:///./smartpath.db"
 
-# EMAIL settings (Заглушка)
-SMTP_USER = "noreply@smartpath.mvp"
+    class Config:
+        case_sensitive = True
+
+
+settings = Settings()

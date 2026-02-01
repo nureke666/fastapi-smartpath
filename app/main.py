@@ -1,16 +1,14 @@
+# app/main.py
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from app.routers import auth, navigation
+from app.core.config import settings
+from app.db.session import engine
+from app.db.base import Base
 
-app = FastAPI(title="SmartPath MVP")
+# Создаем таблицы в БД автоматически (для MVP это ок, вместо миграций пока)
+Base.metadata.create_all(bind=engine)
 
-# Подключаем роутеры
-app.include_router(auth.router)
-app.include_router(navigation.router)
+app = FastAPI(title=settings.PROJECT_NAME)
 
-# Если будут картинки/стили
-# app.mount("/static", StaticFiles(directory="static"), name="static")
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to SmartPath API", "status": "running"}
