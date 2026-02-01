@@ -9,7 +9,7 @@ from app.db.base import Base
 
 # --- ВАЖНО: Импортируем ВСЕ модели, чтобы SQLAlchemy знала о них ---
 from app.models.user import User  # <--- Этой строки не хватало!
-from app.models.roadmap import Career, RoadmapNode, Question, UserProgress
+from app.models.roadmap import Career, Module, Question, UserProgress
 
 
 def init_db():
@@ -64,7 +64,7 @@ def init_db():
 
     for data in nodes_data:
         # Создаем ноду
-        new_node = RoadmapNode(
+        new_node = Module(
             career_id=python_career.id,
             title=data["title"],
             description_content=data["desc"],

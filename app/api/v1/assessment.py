@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from app.db.session import SessionLocal
-from app.models.roadmap import Question, UserProgress, RoadmapNode
+from app.models.roadmap import Question, UserProgress, Module
 from app.models.user import User
 from app.schemas.quiz import QuestionPublic, AnswerSubmit
 from app.api import deps
@@ -80,12 +80,12 @@ def submit_quiz(
 
         # 2. Ищем СЛЕДУЮЩИЙ узел и делаем его AVAILABLE
         # Получаем текущую ноду, чтобы узнать её order_index
-        current_node = db.query(RoadmapNode).get(node_id)
+        current_node = db.query(Module).get(node_id)
 
         # Ищем ноду с order_index + 1
-        next_node = db.query(RoadmapNode).filter(
-            RoadmapNode.career_id == current_node.career_id,
-            RoadmapNode.order_index == current_node.order_index + 1
+        next_node = db.query(Module).filter(
+            Module.career_id == current_node.career_id,
+            Module.order_index == current_node.order_index + 1
         ).first()
 
         if next_node:
