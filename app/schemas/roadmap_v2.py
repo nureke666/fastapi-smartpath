@@ -22,9 +22,9 @@ class ResourceResponse(BaseModel):
     type: str
     url: str
     search_query: Optional[str] = None
-    level: str
-    why_this: str
-    time_estimate_hours: int
+    level: Optional[str] = None
+    why_this: Optional[str] = None
+    time_estimate_hours: Optional[int] = 0
 
     class Config:
         from_attributes = True
@@ -32,10 +32,10 @@ class ResourceResponse(BaseModel):
 
 
 class PracticeTaskResponse(BaseModel):
-    title: str
-    description: str
-    deliverables_json: str
-    acceptance_criteria_json: str
+    title: Optional[str] = None
+    description: Optional[str] = None
+    deliverables_json: Optional[str] = None
+    acceptance_criteria_json: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -43,8 +43,8 @@ class PracticeTaskResponse(BaseModel):
 
 
 class CheckpointResponse(BaseModel):
-    what_to_show: str
-    how_to_self_check: str
+    what_to_show: Optional[str] = None
+    how_to_self_check: Optional[str] = None
     rubric_json: Optional[str] = None
 
     class Config:
@@ -56,7 +56,7 @@ class QuestionResponse(BaseModel):
     question_text: str
     options_json: str
     correct_index: int
-    explanation: str
+    explanation: Optional[str] = None
 
     class Config:
         from_attributes = True

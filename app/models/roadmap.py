@@ -32,6 +32,7 @@ class Module(Base):
     depends_on_json = Column(Text)  # ["M0"]
     topic = Column(String)
     goal = Column(Text)
+    summary = Column(Text, nullable=True) # <-- НОВОЕ ПОЛЕ: Краткое содержание
     estimated_hours = Column(Integer)
 
     # Связи

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Roadmap - SmartPath</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">
+            <span class="material-icons" style="color: var(--google-blue);">explore</span>
+            Smart<span>Path</span>
+        </a>
+        <nav>
+            <a href="index.html"><span class="material-icons">dashboard</span> My Roadmaps</a>
+            <a href="generate.html" class="active"><span class="material-icons">add_circle_outline</span> Create New</a>
+            <a href="profile.html"><span class="material-icons">person</span> Profile</a>
+            <a href="#" onclick="logout()"><span class="material-icons">logout</span> Logout</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <h1>Design Your Career Path</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 24px;">
+                Tell our AI about your goals, and we'll build a custom curriculum for you.
+            </p>
+
+            <form onsubmit="handleGenerate(event)">
+                <div class="form-group">
+                    <label>Target Role</label>
+                    <input type="text" name="role" placeholder="e.g. Senior Python Backend Developer" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Current Tech Stack (Optional)</label>
+                    <textarea name="current_stack" rows="3" placeholder="e.g. Python (Basic), SQL, Git"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Specific Goal</label>
+                    <input type="text" name="goal" placeholder="e.g. Get a job at a Fintech company" required>
+                </div>
+
+                <div style="display: flex; gap: 20px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>Hours per Week</label>
+                        <input type="number" name="hours" value="10" min="1" max="100">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>Learning Style</label>
+                        <select name="style">
+                            <option value="Mixed">Mixed (Videos + Reading)</option>
+                            <option value="Video-based">Video Heavy</option>
+                            <option value="Text-based">Documentation / Books</option>
+                            <option value="Project-based">Project Heavy</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Focus Area</label>
+                    <select name="focus">
+                        <option value="job-ready">Job Ready (Practical)</option>
+                        <option value="foundations">Computer Science Foundations</option>
+                        <option value="cutting-edge">Cutting Edge Tech</option>
+                    </select>
+                </div>
+
+                <div style="margin-top: 24px; text-align: right;">
+                    <button type="submit" class="btn">
+                        <span class="material-icons">auto_awesome</span> Generate Roadmap
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        checkAuth();
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SmartPath</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">
+            <span class="material-icons" style="color: var(--google-blue);">explore</span>
+            Smart<span>Path</span>
+        </a>
+        <nav>
+            <a href="index.html" class="active"><span class="material-icons">dashboard</span> My Roadmaps</a>
+            <a href="generate.html"><span class="material-icons">add_circle_outline</span> Create New</a>
+            <a href="profile.html"><span class="material-icons">person</span> Profile</a>
+            <a href="#" onclick="logout()"><span class="material-icons">logout</span> Logout</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Your Career Paths</h1>
+
+        <div id="roadmap-list" class="roadmap-grid">
+            <!-- Loaded via JS -->
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        checkAuth();
+        loadRoadmaps();
+    </script>
+</body>
+</html>

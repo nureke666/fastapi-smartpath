@@ -8,6 +8,8 @@ class ResourceResponse(BaseModel):
     title: str
     type: str
     url: str
+    level: Optional[str] = None
+    why_this: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -17,13 +19,14 @@ class ResourceResponse(BaseModel):
 class RoadmapNodeBase(BaseModel):
     title: str
     description_content: Optional[str] = None
+    summary: Optional[str] = None # <-- НОВОЕ ПОЛЕ
     order_index: int
 
 
 class RoadmapNodeResponse(RoadmapNodeBase):
     id: int
     status: str = "LOCKED"
-    resources: List[ResourceResponse] = []  # <--- Добавили список ресурсов
+    resources: List[ResourceResponse] = []
 
     class Config:
         from_attributes = True

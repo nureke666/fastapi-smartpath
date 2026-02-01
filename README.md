@@ -13,30 +13,32 @@
 
 ## 🔥 Key Features
 
-- **🔐 JWT Authentication:** Secure login system using HttpOnly Cookies.
-- **🤖 AI Onboarding:** Smart questionnaire to assess user level and career goals.
-- **🗺️ Roadmap Generation:** AI creates a personalized skill tree with estimated timelines.
-- **💬 AI Career Coach:** Built-in chat bot that answers career questions in context.
-- **📊 Market Tracker:** Salary and vacancy analytics dashboard (Demo).
-- **🎨 Cyberpunk UI:** Modern dark-mode interface built with TailwindCSS.
+- **🗺️ AI Roadmap Generation:** Generates a personalized skill tree with estimated timelines based on your goal (e.g., "Senior Python Dev").
+- **🎓 Interactive Learning:**
+    - **Smart Content:** AI-generated summaries and curated resources (articles, videos) for each module.
+    - **Quizzes:** Auto-generated quizzes to validate knowledge. (Pass rate: 70%).
+- **🤖 Contextual AI Mentor:** Built-in chat bot that answers questions **in the context** of your current learning module.
+- **🎮 Gamification:**
+    - **XP System:** Earn XP for completing modules.
+    - **Badges:** Unlock achievements (e.g., "Explorer", "High Five").
+    - **Profile:** Visual dashboard of your progress.
+- **🛡️ Security & Stability:**
+    - **Rate Limiting:** Protects AI endpoints from abuse.
+    - **JWT Auth:** Secure stateless authentication.
 
 ---
 
 ## 🛠 Tech Stack
 
-- **Language:** Python 3.12
-- **Package Manager:** [uv](https://github.com/astral-sh/uv) (Modern & Fast replacement for pip)
-- **Framework:** FastAPI
-- **AI Engine:** Google Gemini SDK (`google-genai`)
-- **Templating:** Jinja2 (SSR - Server Side Rendering)
-- **Styling:** TailwindCSS (CDN)
-- **Security:** Passlib (Bcrypt), Python-Jose (JWT)
+- **Backend:** Python 3.12, FastAPI, SQLAlchemy, Pydantic.
+- **AI Engine:** Google Gemini 2.0 Flash (via `google-genai` SDK).
+- **Frontend:** Vanilla JS + HTML5 + CSS3 (Google Material Design style). No heavy frameworks.
+- **Database:** SQLite (MVP) -> PostgreSQL (Production ready).
+- **Package Manager:** [uv](https://github.com/astral-sh/uv) (Modern & Fast replacement for pip).
 
 ---
 
 ## 🚀 How to Run
-
-We use `uv` for dependency management as it is significantly faster and more reliable than standard pip.
 
 ### 1. Clone the repository
 ```bash
@@ -44,77 +46,77 @@ git clone <your-repo-link>
 cd smartpath_mvp
 ```
 
-### 2. Install dependencies (using uv)
-Instead of creating a venv manually, `uv` handles everything:
+### 2. Install dependencies
+We recommend using `uv` for speed, but standard `pip` works too.
 
+**Using uv:**
 ```bash
 uv sync
 ```
-*This command will create a virtual environment and install all libraries locked in `uv.lock` / `pyproject.toml`.*
 
-### 3. Configure API Key
-Open `app/core/config.py` and insert your Google Gemini API Key:
-
-```python
-# app/core/config.py
-API_KEY_GEMINI = "YOUR_GEMINI_KEY_HERE"
+**Using pip:**
+```bash
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install .
 ```
 
-### 4. Run the Server
-Use `uv run` to start the application:
+### 3. Configure Environment
+Create a `.env` file in the root directory:
 
+```ini
+SECRET_KEY=your_random_secret_string
+GEMINI_API_KEY=your_google_gemini_api_key
+```
+*(Get your free Gemini API key at [aistudio.google.com](https://aistudio.google.com/))*
+
+### 4. Run the Backend
 ```bash
 uv run fastapi dev app/main.py
+# OR
+fastapi dev app/main.py
 ```
+The API will start at **http://127.0.0.1:8000**
 
-The server will start at: **http://127.0.0.1:8000**
+### 5. Run the Frontend
+Open a new terminal tab, go to the `frontend` folder and start a simple server:
+
+```bash
+cd frontend
+python3 -m http.server 8080
+```
+Then open **http://localhost:8080/landing.html** in your browser.
 
 ---
 
 ## 🔑 Demo Credentials
 
-To test the MVP functionalities, use the pre-configured admin account:
+You can register a new account, or use these defaults if you seeded the DB:
 
 | Role | Username | Password |
 |------|----------|----------|
-| **Admin** | `admin` | `admin` |
-
-*(You can also register a new user flow via the Onboarding process, but the admin account is recommended for quick demo).*
+| **User** | `user@example.com` | `password` |
 
 ---
 
-## 📂 Project Structure (Clean Architecture)
-
-The project follows Clean Architecture principles for maintainability and scalability:
+## 📂 Project Structure
 
 ```text
 smartpath-mvp/
 ├── app/
-│   ├── core/           # Configuration & Security (JWT, Hashing)
-│   ├── db/             # Mock Database (In-memory storage)
-│   ├── routers/        # API Endpoints (Auth, Navigation, Chat)
-│   ├── services/       # Business Logic (Gemini AI integration)
-│   └── main.py         # Application Entry Point
-├── templates/          # HTML Templates (Login, Dashboard, Roadmap)
-├── pyproject.toml      # Project dependencies
-├── uv.lock             # Dependency lock file (for uv)
+│   ├── api/            # API Endpoints (Auth, Roadmap, Chat, Quiz)
+│   ├── core/           # Config, Security, Rate Limiting
+│   ├── db/             # Database Session & Base
+│   ├── models/         # SQLAlchemy Models (User, Career, Module, Chat)
+│   ├── schemas/        # Pydantic Schemas (Request/Response validation)
+│   ├── services/       # AI Logic (Gemini integration)
+│   └── main.py         # App Entry Point
+├── frontend/           # Static HTML/CSS/JS files
+├── pyproject.toml      # Dependencies
 └── README.md           # Documentation
 ```
 
 ---
 
-## 🔮 Future Roadmap
-
-- [x] MVP: Roadmap Generation & Basic UI
-- [x] MVP: Google Gemini 2.0 Integration
-- [ ] Integration with real Job Market APIs (LinkedIn/HeadHunter)
-- [ ] PostgreSQL Database implementation (replacing Mock DB)
-- [ ] Stripe Payment integration for Pro plans
-
----
-
 ### Authors
 Team SmartPath 🚀
-```
-
-```

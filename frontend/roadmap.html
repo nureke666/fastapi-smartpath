@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap Details - SmartPath</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">
+            <span class="material-icons" style="color: var(--google-blue);">explore</span>
+            Smart<span>Path</span>
+        </a>
+        <nav>
+            <a href="index.html"><span class="material-icons">dashboard</span> My Roadmaps</a>
+            <a href="generate.html"><span class="material-icons">add_circle_outline</span> Create New</a>
+            <a href="profile.html"><span class="material-icons">person</span> Profile</a>
+            <a href="#" onclick="logout()"><span class="material-icons">logout</span> Logout</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="roadmap-header" style="margin-bottom: 30px;">
+            <h1 id="r-title">Loading...</h1>
+            <p id="r-desc" style="color: var(--text-secondary); max-width: 700px;"></p>
+        </div>
+
+        <ul id="node-list" class="node-list">
+            <!-- Nodes loaded via JS -->
+        </ul>
+    </div>
+
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" class="modal">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2>Module Quiz</h2>
+                <span onclick="closeQuiz()" style="cursor: pointer; font-size: 24px;">&times;</span>
+            </div>
+            <div id="quiz-content">
+                <!-- Questions go here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Learn Modal -->
+    <div id="learn-modal" class="modal">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 id="learn-title">Module Content</h2>
+                <span onclick="closeLearn()" style="cursor: pointer; font-size: 24px;">&times;</span>
+            </div>
+            <div id="learn-content">
+                <!-- Content goes here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-fab" onclick="toggleChat()">
+        <span class="material-icons" style="font-size: 28px;">smart_toy</span>
+    </div>
+
+    <div class="chat-window" id="chat-window">
+        <div class="chat-header">
+            <div style="font-weight: 500;">AI Mentor</div>
+            <span class="material-icons" style="cursor: pointer; font-size: 20px;" onclick="toggleChat()">close</span>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message ai">
+                Hello! I'm your AI Mentor. I can help you with your current roadmap. Ask me anything!
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Ask a question..." onkeypress="handleChatKey(event)">
+            <button onclick="sendChatMessage()">
+                <span class="material-icons">send</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        checkAuth();
+        loadRoadmapDetail();
+    </script>
+</body>
+</html>

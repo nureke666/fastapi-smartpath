@@ -15,4 +15,5 @@ class User(Base):
 
     # Связь с прогрессом (One-to-Many)
     # progress = relationship("UserProgress", back_populates="user")
-    # (Раскомментируем, когда создадим модель UserProgress)
+    
+    chat_messages = relationship("ChatMessage", back_populates="user", cascade="all, delete-orphan")

@@ -34,6 +34,7 @@ def _career_to_response(career: Career, progress_map: dict[int, str] | None = No
             "id": module.id,
             "title": module.topic or (module.module_id_str or ""),
             "description_content": module.goal,
+            "summary": module.summary, # <-- Добавили summary
             "order_index": _module_order_key(module),
             "status": progress_map.get(module.id, "LOCKED"),
             "resources": module.resources or [],
@@ -50,7 +51,7 @@ def _career_to_response(career: Career, progress_map: dict[int, str] | None = No
 @router.get("/", response_model=List[CareerResponse])
 def get_all_careers(
         db: Session = Depends(deps.get_db),
-        current_user: User = Depends(deps.get_current_user)  # Теперь нужен токен!
+        current_user: User = Depends(deps.get_current_user)
 ):
     """
     Показывает:
@@ -179,6 +180,7 @@ def generate_custom_roadmap(
             depends_on_json=json.dumps(depends_on),
             topic=node_data.get("title"),
             goal=node_data.get("desc"),
+            summary=node_data.get("summary"), # <-- Сохраняем summary
             estimated_hours=node_data.get("estimated_hours", 0)
         )
         db.add(new_module)
